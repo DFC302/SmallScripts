@@ -1,5 +1,8 @@
 import subprocess
 import re
+import argparse
+import os
+import sys
 
 # The purpose of this script is to take two files
 # the primary will be a file containing all found subdomains
@@ -8,13 +11,46 @@ import re
 # and remove out of scoped domains from the all found subdomains.
 
 
-# This is useful, as it allows confidence to scan found subdomains and not worry about scanning out of scope domains
+# This is useful, as it allows confidence to scan found subdomains with confidence and not worry about
+# scanning out of scope domains
+
+def options():
+	parser = argparse.ArgumentParser()
+
+	parser.add_argument(
+		"--noscope", "-ns",
+		help="Specify file that contains out of scope domains.",
+		action="store",
+	)
+
+	parser.add_argument(
+		"--scope", "-s",
+		help="Specify file that contains scoped domains.",
+		action="store",
+	)
+
+	# if no arguments are given, print usage message
+	if len(sys.argv[1:]) == 0:
+		parser.print_help()
+		parser.exit()
+
+	args = parser.parse_args()
+	return args
+
+def checkFiles():
+	if not os.path.isfile(options().noscope):
+		print("Out of scope file not found!")
+		sys.exit(1)
+
+	if not os.path.isfile(options().scope):
+		print("Scope domain file not found!")
+		sys.exit(1)
 
 def noScope():
 	# define empty list to hold out of scope domains
 	out_of_scope = []
 
-	with open("out_of_scope.txt", "r") as rf:
+	with open(options().noscope, "r") as rf:
 		for domain in rf:
 			# strip newline character and append out of scope domains
 			domain = domain.strip("\n")
@@ -55,7 +91,8 @@ def scope(filename):
 
 
 def main():
-	scope("scope.txt")
+	checkFiles()
+	scope(options().scope)
 
 if __name__ == "__main__":
 	main()
