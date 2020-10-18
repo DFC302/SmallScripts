@@ -11,12 +11,6 @@ def options():
 	parser = argparse.ArgumentParser()
 
 	parser.add_argument(
-		"--generate-words", "-gw",
-		help="Generate words for a given length",
-		action="store_true",
-	)
-
-	parser.add_argument(
 		"--reduce", "-r",
 		help="Used with generate-words flag, used to produce all words of a given length and reduce down to two words.",
 		action="store_true",
@@ -178,10 +172,10 @@ def all_words_given_length_reduced():
 		i-=1
 
 def main():
-	if options().generate_words and options().reduce:
+	if options().reduce:
 		all_words_given_length_reduced()
 
-	if options().generate_words and not options().reduce:
+	if not options().reduce:
 		all_words_given_length()
 
 if __name__ == "__main__":
