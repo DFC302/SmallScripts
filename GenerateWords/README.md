@@ -6,15 +6,12 @@ This script will generate words using dictionaries of the user's choice.
 
 # Usage
 ```
-usage: generate_words.py [-h] [--generate-words] [--reduce]
-                         [--letters LETTERS] [--out OUT] [--length LENGTH]
-                         [--dict DICT] [--check-dict CHECK_DICT] [--verbose]
-                         [--version]
+usage: generateWords.py [-h] [--reduce] [--letters LETTERS] [--out OUT]
+                        [--length LENGTH] [--dict DICT]
+                        [--check-dict CHECK_DICT] [--verbose] [--version]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --generate-words, -gw
-                        Generate words for a given length
   --reduce, -r          Used with generate-words flag, used to produce all
                         words of a given length and reduce down to two words.
   --letters LETTERS, -L LETTERS
